@@ -119,7 +119,7 @@ def process_reviews(reviews_file, output_file, max_reviews=15):
 
         # 保存处理后的评论
         with open(output_file, 'w', encoding='utf-8') as f:
-            # 将字典转换为列表格式保存
+           
             all_reviews = []
             for asin_reviews in reviews_dict.values():
                 all_reviews.extend(asin_reviews)
@@ -222,10 +222,10 @@ def main():
     random.seed(42)
 
     # 输入文件路径
-    metadata_json = "E:/agent/AgentShop/new_data/meta_Clothing_Shoes_and_Jewelry.json"
-    reviews_json = "E:/agent/AgentShop/new_data/reviews_Clothing_Shoes_and_Jewelry.json"
+    metadata_json = "data/meta_Clothing_Shoes_and_Jewelry.json"#商品元数据
+    reviews_json = "data/reviews_Clothing_Shoes_and_Jewelry.json"#商品评论数据
 
-    # 处理后的中间文件（保存在相同目录下）
+
     output_dir = "E:/agent/AgentShop/new_data/"
     processed_metadata_json = output_dir + "processed_metadata.json"
     processed_reviews_json = output_dir + "processed_reviews.json"
