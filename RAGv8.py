@@ -1,4 +1,3 @@
-#解决ID搜索不到的问题
 import os
 import json
 from typing import List, Dict, Any
@@ -16,11 +15,11 @@ from langchain.agents import Tool, AgentExecutor, create_react_agent
 from langchain_openai import ChatOpenAI
 
 # 配置DeepSeek API (使用OpenAI兼容接口)
-os.environ["OPENAI_API_KEY"] = "sk-6a5f6448ed8147d382b8a89d3fcb6656"
+os.environ["OPENAI_API_KEY"] = "你的deepseek API key"
 os.environ["OPENAI_API_BASE"] = "https://api.deepseek.com/v1"
 
 # 设置嵌入模型选项和模型名称
-EMBEDDING_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"  # 多语言模型，支持中文
+EMBEDDING_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"  
 #EMBEDDING_MODEL = "nomic-ai/nomic-embed-text-v1.5"
 VECTOR_STORE_PATH = "./data/product_vectors"  # 向量存储保存目录名
 BATCH_SIZE = 1000  # 批处理大小
@@ -90,35 +89,32 @@ class ProductKnowledgeBase:
                 # 重置文件指针
                 f.seek(0)
 
-                # 尝试作为标准JSON解析
+                
                 try:
                     if first_line.startswith('[') or first_line.startswith('{'):
                         data = json.load(f)
 
-                        # 如果数据是一个列表，直接使用
+                      
                         if isinstance(data, list):
-                            # 可选限制加载的产品数量
                             if max_products is not None:
                                 data = data[:max_products]
 
                             for item in data:
                                 self.products.append(Product(item))
-                        # 如果数据是单个产品的字典，放入列表中
+                       
                         elif isinstance(data, dict):
                             self.products.append(Product(data))
 
                         print(f"已加载 {len(self.products)} 个产品（标准JSON格式）。")
                         return
                 except json.JSONDecodeError:
-                    # 如果不是标准JSON，则按JSONL处理
                     pass
 
-            # 按JSONL格式处理（每行一个JSON对象）
             count = 0
             with open(json_file_path, 'r', encoding='utf-8') as f:
                 for line in f:
                     line = line.strip()
-                    if not line:  # 跳过空行
+                    if not line:  
                         continue
 
                     try:
@@ -148,7 +144,6 @@ class ProductKnowledgeBase:
             traceback.print_exc()
 
     def create_vector_store(self):
-        """创建向量存储，支持批处理、进度条和向量存储保存/加载"""
         # FAISS在保存时会创建一个名为VECTOR_STORE_PATH的目录，并在其中保存index.faiss和index.pkl文件
         index_faiss_path = os.path.join(VECTOR_STORE_PATH, "index.faiss")
         index_pkl_path = os.path.join(VECTOR_STORE_PATH, "index.pkl")
@@ -251,7 +246,6 @@ class ProductKnowledgeBase:
 
         products_info = []
         for doc, score in results:
-            # 转换相似度分数 (FAISS返回的是距离，越小越相似)
             # 将其转换为0-1之间的相似度分数
             similarity = 1.0 / (1.0 + float(score))
 
