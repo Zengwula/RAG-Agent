@@ -57,7 +57,6 @@ graph TD
 | **嵌入模型**   | paraphrase-multilingual-MiniLM   |
 | **开发语言**   | Python 3.10+                      |
 
-##  安装与使用
 
 ## 配置文件
 添加DeepSeek API密钥：
