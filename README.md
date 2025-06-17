@@ -65,15 +65,12 @@ graph TD
 OPENAI_API_KEY=sk-your-api-key-here
 
 OPENAI_API_BASE=https://api.deepseek.com/v1
-```
+
 
 ## 数据准备
 亚马逊商品数据：https://cseweb.ucsd.edu/~jmcauley/datasets/amazon/links.html
+
 在该网站下载商品元数据meta和评论数据review
 
 
 
-
-## 📜 许可证
-
-本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
