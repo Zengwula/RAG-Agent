@@ -71,5 +71,7 @@ OPENAI_API_BASE=https://api.deepseek.com/v1
 
 在该网站下载商品元数据meta和评论数据review
 
+运行dataprocess文件，将商品数据和评论数据按商品ID整合，生成具有固定格式的json文件
+
 
 
